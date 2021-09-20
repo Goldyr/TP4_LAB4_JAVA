@@ -18,8 +18,7 @@ public class Ventana_main implements Runnable{
 		
 		Ventana_main ventanaprincipal = new Ventana_main();
 		ventanaprincipal.run();
-		//Win_Ejercicio1 ej1 = new Win_Ejercicio1();
-		//ej1.run();
+
 	}
 	
 	public Ventana_main() {
