@@ -50,7 +50,9 @@ public class Ventana_main implements Runnable{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					Win_Ejercicio1 ej1 = new Win_Ejercicio1();
-					ej1.run();
+					//ej1.run();
+					Thread hilo1 = new Thread(ej1);
+					hilo1.start();
 				}
 			});
 			btnEjercicio1.setBounds(225, 99, 130, 30);
