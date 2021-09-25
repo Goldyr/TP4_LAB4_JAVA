@@ -38,6 +38,8 @@ public class Win_Ejercicio3 implements Runnable{
 
 	private final ButtonGroup btnGroup_SO = new ButtonGroup();
 	private final ButtonGroup btnGroup_Esp = new ButtonGroup();
+	private  JTextField txtHoras;
+	private JButton btnNewButton;
 	
 	public Win_Ejercicio3() {
 
@@ -149,13 +151,13 @@ public class Win_Ejercicio3 implements Runnable{
 		
 		// 3.1.2 Textfield para ingresar horas
 		// ============
-		JTextField txtHoras = new JTextField();
+		txtHoras = new JTextField();
 		txtHoras.setBounds(289, 11, 108, 20);
 		pnl_ingresarHoras.add(txtHoras);
 		txtHoras.setColumns(10);
 		
 		// 4. Boton para aceptar
-		JButton btnNewButton = new JButton("Aceptar");
+		btnNewButton = new JButton("Aceptar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
