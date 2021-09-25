@@ -51,6 +51,8 @@ public class Ventana_main implements Runnable{
 				public void actionPerformed(ActionEvent e) {
 					Win_Ejercicio1 ej1 = new Win_Ejercicio1();
 					//ej1.run();
+					Thread hilo1 = new Thread(ej1);
+					hilo1.start();
 				}
 			});
 			btnEjercicio1.setBounds(225, 99, 130, 30);
@@ -61,7 +63,9 @@ public class Ventana_main implements Runnable{
 			btnEjercicio2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Win_Ejercicio2 ej2 = new Win_Ejercicio2();
-					//ej2.run();
+					ej2.run();
+					Thread hilo = new Thread(ej2);
+					hilo.start();
 				}
 			});
 			btnEjercicio2.setBounds(225, 159, 130, 30);

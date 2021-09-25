@@ -56,7 +56,7 @@ public class Win_Ejercicio1 extends JFrame implements Runnable{
 			txtApellido.setColumns(10);
 			
 			//label telefono
-			JLabel lblTelefono= new JLabel("Telefono");
+			JLabel lblTelefono= new JLabel("Apellido");
 			lblTelefono.setBounds(65, 110, 46, 14);
 			this.getContentPane().add(lblTelefono);
 			
@@ -103,10 +103,13 @@ public class Win_Ejercicio1 extends JFrame implements Runnable{
 			lblDatoFecha.setBounds(458, 261, 65, 14);
 			this.getContentPane().add(lblDatoFecha);
 			
-			BotonMostrar btn = new BotonMostrar(txtNombre, txtApellido, txtTelefono, txtFecha, this);		
+			BotonMostrar btn = new BotonMostrar();
+			btn.setNombre(txtNombre);
+			btn.setApellido(txtApellido);
+			btn.setTelefono(txtTelefono);
+			btn.setFecha(txtFecha);		
+			
 			btnMostrar.addActionListener(btn);
-			setVisible(true);
-
 	}
 
 	//Uso hilos para correr el codigo de creacion del frame para que las ventanas puedan usarse al mismo tiempo
@@ -114,7 +117,7 @@ public class Win_Ejercicio1 extends JFrame implements Runnable{
 	public void run() {
 
 		try {
-			Win_Ejercicio1 frame = new Win_Ejercicio1();
+			Win_Ejercicio1 frame= new Win_Ejercicio1();
 			frame.setVisible(true);
 
 		} catch (Exception e) {
@@ -131,18 +134,15 @@ class BotonMostrar implements ActionListener{
 	private JTextField Fecha;
 	private Win_Ejercicio1 form;
 	
-	public BotonMostrar(JTextField Nom, JTextField Ape, JTextField Tel, JTextField Fec, Win_Ejercicio1 Formu) {
+/*	public BotonMostrar(JTextField Nom, JTextField Ape, JTextField Tel, JTextField Fec) {
 		Nombre= Nom;
-		Apellido= Ape;
-		Telefono = Tel;
-		Fecha = Fec;
-		form= Formu;
-	}
+	}*/
 	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		//form = new Win_Ejercicio1();
+		form = new Win_Ejercicio1();
 		
 		boolean Datos = VerificarDatos();
 		
@@ -151,16 +151,6 @@ class BotonMostrar implements ActionListener{
 		form.lblDatoApellido.setText(Apellido.getText());
 		form.lblDatoTelefono.setText(Telefono.getText());
 		form.lblDatoFecha.setText(Fecha.getText());
-		
-		form.txtNombre.setBackground(Color.WHITE);
-		form.txtApellido.setBackground(Color.WHITE);
-		form.txtTelefono.setBackground(Color.WHITE);
-		form.txtFecha.setBackground(Color.WHITE);
-		
-		form.txtNombre.setText("");
-		form.txtApellido.setText("");
-		form.txtTelefono.setText("");
-		form.txtFecha.setText("");
 		}
 	
 	}
