@@ -43,7 +43,7 @@ public class Win_Ejercicio3 implements Runnable{
 	
 	public Win_Ejercicio3() {
 
-		fClass = new FrameClass("Ejercicio 70");
+		fClass = new FrameClass("Ejercicio 3");
 		fClass.getContentPane().setLayout(null);
 		
 		this.crearVisual();
