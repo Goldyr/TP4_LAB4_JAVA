@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextPane;
 import javax.swing.Box;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JSeparator;
@@ -22,62 +23,38 @@ import java.awt.Choice;
 import java.awt.Container;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
+import javax.swing.border.TitledBorder;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Win_Ejercicio2 extends JFrame implements Runnable   {
 
 	private static final long serialVersionUID = 1L;
 	
 	public JFrame frame = new JFrame("Ejercicio2");
+	
 	private JTextField tf_Nota1;
 	private JTextField tf_Nota2;
 	private JTextField tf_Nota3;
 	private JTextField tf_Promedio;
 	private JTextField tf_Condicion;
-
-
-	//sets and gets
+	private JComboBox comboBoxTP;
 	
-	public JTextField getTf_Nota1() {
-		return tf_Nota1;
-	}
-
-	public void setTf_Nota1(JTextField tf_Nota1) {
-		this.tf_Nota1 = tf_Nota1;
-	}
-	public JTextField getTf_Nota2() {
-		return tf_Nota2;
-	}
-
-	public void setTf_Nota2(JTextField tf_Nota2) {
-		this.tf_Nota2 = tf_Nota2;
-	}
-	
-	public JTextField getTf_Nota3() {
-		return tf_Nota3;
-	}
-
-	public void setTf_Nota3(JTextField tf_Nota3) {
-		this.tf_Nota3 = tf_Nota3;
-	}
-	
-	public JTextField getTf_Promedio() {
-		return tf_Promedio;
-	}
-
-	public void setTf_Promedio(JTextField tf_Promedio) {
-		this.tf_Promedio = tf_Promedio;
-	}
-
-	public JTextField getTf_Condicion() {
-		return tf_Condicion;
-	}
-
-	public void setTf_Condicion(JTextField tf_Condicion) {
-		this.tf_Condicion = tf_Condicion;
-	}
+	private float promedioAlumno = 0;
 	
 	public Win_Ejercicio2() {
+		
+		crearVisual();
+		actualizarVentana();
+	}
+	
+	private void crearVisual()
+	{
+		this.setTitle("Ejercicio 2");
 		getContentPane().setLayout(null);
 		//Alto ancho y posicion donde se crea
 		this.setBounds(100,100,600,400);
@@ -85,71 +62,178 @@ public class Win_Ejercicio2 extends JFrame implements Runnable   {
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
-		JLabel lblTitulo = new JLabel("Ejercicio 2");
-		this.getContentPane().add(lblTitulo);
+		Botones btn= new Botones(getContentPane(), this);
 		
-		tf_Nota1 = new JTextField();
-		tf_Nota1.setBounds(128, 44, 129, 26);
-		getContentPane().add(getTf_Nota1());
-		tf_Nota1.setColumns(10);
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Notas del estudiante", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(28, 11, 283, 188);
+		getContentPane().add(panel);
+		panel.setLayout(null);
 		
 		//label de la nota 1
 		JLabel lblNewLabel = new JLabel("Nota 1:");
-		lblNewLabel.setBounds(37, 50, 46, 14);
-		getContentPane().add(lblNewLabel);
+		lblNewLabel.setBounds(32, 26, 58, 14);
+		panel.add(lblNewLabel);
 		//label de la nota 2
 		JLabel lblNota_1 = new JLabel("Nota 2:");
-		lblNota_1.setBounds(37, 87, 46, 14);
-		getContentPane().add(lblNota_1);
+		lblNota_1.setBounds(32, 65, 58, 14);
+		panel.add(lblNota_1);
 		//label de la nota 3
 		JLabel lblNota = new JLabel("Nota 3:");
-		lblNota.setBounds(37, 124, 46, 14);
-		getContentPane().add(lblNota);
+		lblNota.setBounds(32, 110, 46, 14);
+		panel.add(lblNota);
+		
+		tf_Nota1 = new JFormattedTextField();
+		tf_Nota1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(!Character.isDigit(e.getKeyChar())) e.consume();
+			}
+		});
+		tf_Nota1.setBounds(115, 20, 129, 26);
+		panel.add(tf_Nota1);
+		tf_Nota1.setColumns(10);
+		
+		tf_Nota2 = new JFormattedTextField();
+		tf_Nota2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(!Character.isDigit(e.getKeyChar())) e.consume();
+			}
+		});
+		tf_Nota2.setBounds(115, 59, 129, 26);
+		panel.add(tf_Nota2);
+		tf_Nota2.setColumns(10);
+		
+		tf_Nota3 = new JFormattedTextField();
+		tf_Nota3.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(!Character.isDigit(e.getKeyChar())) e.consume();
+			}
+		});
+		tf_Nota3.setBounds(115, 104, 129, 26);
+		panel.add(tf_Nota3);
+		tf_Nota3.setColumns(10);
 		//label de TPS
 		JLabel lblNewLabel_2_1 = new JLabel("TPS");
-		lblNewLabel_2_1.setBounds(37, 161, 46, 14);
-		getContentPane().add(lblNewLabel_2_1);
+		lblNewLabel_2_1.setBounds(32, 147, 46, 14);
+		panel.add(lblNewLabel_2_1);
 		
-		tf_Nota2 = new JTextField();
-		tf_Nota2.setColumns(10);
-		tf_Nota2.setBounds(128, 81, 129, 26);
-		getContentPane().add(tf_Nota2);
+		comboBoxTP = new JComboBox();
+		comboBoxTP.setModel(new DefaultComboBoxModel(new String[] {"Aprobado", "Desaprobado"}));
+		comboBoxTP.setBounds(115, 144, 129, 20);
+		panel.add(comboBoxTP);
 		
-		tf_Nota3 = new JTextField();
-		tf_Nota3.setColumns(10);
-		tf_Nota3.setBounds(128, 118, 129, 26);
-		getContentPane().add(tf_Nota3);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "Notas del estudiante", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(28, 211, 283, 118);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		//label de promedio
+		JLabel lblNewLabel_1_1 = new JLabel("Promedio:");
+		lblNewLabel_1_1.setBounds(29, 32, 75, 14);
+		panel_1.add(lblNewLabel_1_1);
 		
 		
 		
 		//label de condicion
 		JLabel lblNewLabel_2_2 = new JLabel("Condicion");
-		lblNewLabel_2_2.setBounds(37, 284, 81, 14);
-		getContentPane().add(lblNewLabel_2_2);
-		
-		//label de promedio
-		JLabel lblNewLabel_1_1 = new JLabel("Promedio:");
-		lblNewLabel_1_1.setBounds(37, 247, 81, 14);
-		getContentPane().add(lblNewLabel_1_1);
+		lblNewLabel_2_2.setBounds(29, 71, 81, 14);
+		panel_1.add(lblNewLabel_2_2);
 		
 		tf_Promedio = new JTextField();
+		tf_Promedio.setEditable(false);
+		tf_Promedio.setBounds(115, 26, 129, 26);
+		panel_1.add(tf_Promedio);
 		tf_Promedio.setColumns(10);
-		tf_Promedio.setBounds(128, 241, 129, 26);
-		getContentPane().add(tf_Promedio);
 		
 		tf_Condicion = new JTextField();
+		tf_Condicion.setEditable(false);
+		tf_Condicion.setBounds(115, 65, 129, 26);
+		panel_1.add(tf_Condicion);
 		tf_Condicion.setColumns(10);
-		tf_Condicion.setBounds(128, 278, 129, 26);
-		getContentPane().add(tf_Condicion);
+	}
+	
+	public void actualizarVentana() {
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(128, 158, 129, 20);
-		getContentPane().add(comboBox);
+		tf_Promedio.setText(String.valueOf(promedioAlumno));
 		
-		Botones btn= new Botones(getContentPane(), this);
-		
+		logicaCondicionNotas();
 		
 	}
+	
+	private void logicaCondicionNotas()
+	{
+		try {
+			float nota1, nota2, nota3;
+			nota1 = Float.parseFloat(tf_Nota1.getText());
+			nota2 = Float.parseFloat(tf_Nota2.getText());
+			nota3 = Float.parseFloat(tf_Nota3.getText());
+			
+			if(comboBoxTP.getSelectedItem() == "Desaprobado") {
+				tf_Condicion.setText("Libre");
+				return;
+			}
+			
+			if(nota1 < 6 || nota2 < 6 ||nota3 < 6) {
+				tf_Condicion.setText("Libre");
+				return;
+	        }
+			
+			if(nota1 >= 8 && nota2 >= 8 && nota3 >= 8
+					&& comboBoxTP.getSelectedItem() =="Aprobado") {
+				tf_Condicion.setText("Promocionado");
+				return;
+	        }
+
+			if(nota1 >=6 && nota1<=8 && 
+					nota2>=6  && nota2<=8 && 
+					nota3>=6 && nota3<=8 && 
+					comboBoxTP.getSelectedItem() =="Aprobado") {
+				tf_Condicion.setText("Regular");
+	        }
+		}
+		
+		catch(Exception ex) {
+			
+		}
+	}
+	
+	
+	
+	
+	//sets and gets
+	
+		public void setPromedioAlumno(float promedio) {
+			promedioAlumno = promedio;
+		}
+		
+		public float getPromedioAlumno() {
+			return promedioAlumno;
+		}
+		
+		public JTextField getTf_Nota1() {
+			return tf_Nota1;
+		}
+
+		public void setTf_Nota1(JTextField tf_Nota1) {
+			this.tf_Nota1 = tf_Nota1;
+		}
+		
+		
+		public JTextField getTf_Nota2() {
+			return tf_Nota2;
+		}
+
+		public void setTf_Nota2(JTextField tf_Nota2) {
+			this.tf_Nota2 = tf_Nota2;
+		}
+		
+		public JTextField getTf_Nota3() {
+			return tf_Nota3;
+		}
 
 	//Uso hilos para correr el codigo de creacion del frame para que las ventanas puedan usarse al mismo tiempo
 	@Override
@@ -164,7 +248,6 @@ public class Win_Ejercicio2 extends JFrame implements Runnable   {
 			e.printStackTrace();
 		}
 	}
-
 }
 
 class Botones implements ActionListener{
@@ -197,7 +280,7 @@ class Botones implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==btn_Calcular) {
-			Calculo();
+			ventana2.setPromedioAlumno(calcularPromedio());
 		}
 		if(e.getSource()==btn_Nuevo) {
 			
@@ -206,27 +289,38 @@ class Botones implements ActionListener{
 			
 		}
 		
+		ventana2.actualizarVentana();
+	
 	}
 	
-	public void Calculo(){
+	public float calcularPromedio(){
  
+		float valorPromedio = 0;
+		
 		try{
-	            int nota1 = Integer.parseInt(ventana2.getTf_Nota1().getText());
-	            int nota2 = Integer.parseInt(ventana2.getTf_Nota2().getText());
-	            int nota3 = Integer.parseInt(ventana2.getTf_Nota3().getText());
+	            float nota1 = Float.parseFloat(ventana2.getTf_Nota1().getText());
+	            float nota2 = Float.parseFloat(ventana2.getTf_Nota2().getText());
+	            float nota3 = Float.parseFloat(ventana2.getTf_Nota3().getText());
 	            
-	            IntStream promedio = IntStream.of(nota1,nota2,nota3);
+	            DoubleStream promedio = DoubleStream.of(nota1,nota2,nota3);
 	            OptionalDouble res = promedio.average();
-	            int valor = (int) res.getAsDouble() ;
-	            System.out.println(valor);
-	            ventana2.getTf_Promedio().setText(String.valueOf(valor));
+	            
+	            valorPromedio = (float)res.getAsDouble() ;
+	          
 	        }
 	        catch (NumberFormatException ex){
 	            ex.printStackTrace();
 	        }
 		
-		return;
+		return  round(valorPromedio, 2);
 	} 
 	
-}
 
+
+//Metodo para redondear hasta 2 cifras el decimal
+public static float round(float d, int decimalPlace) {
+    BigDecimal bd = new BigDecimal(Float.toString(d));
+    bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+    return bd.floatValue();
+}
+}
