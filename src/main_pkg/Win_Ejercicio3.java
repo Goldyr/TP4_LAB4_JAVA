@@ -2,54 +2,45 @@ package main_pkg;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import utilities.FrameClass;
 
-import java.awt.Choice;
-import javax.swing.JList;
-import java.awt.Scrollbar;
-import javax.swing.BoxLayout;
+
+
 import javax.swing.ButtonGroup;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.JRadioButton;
-import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
-import javax.swing.JRadioButtonMenuItem;
 
 
-public class Win_Ejercicio3 implements Runnable{
+
+public class Win_Ejercicio3 extends JFrame {
 	
-	private FrameClass fClass;
 
+	
 	private final ButtonGroup btnGroup_SO = new ButtonGroup();
 	private final ButtonGroup btnGroup_Esp = new ButtonGroup();
 	private  JTextField txtHoras;
 	private JButton btnNewButton;
 	
 	public Win_Ejercicio3() {
+		this.setTitle("Ejercicio 3");
 
-		fClass = new FrameClass("Ejercicio 3");
-		fClass.getContentPane().setLayout(null);
+		this.getContentPane().setLayout(null);
+		this.setBounds(100,100,600,400);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		this.crearVisual();
 
 		
-		fClass.setVisible(true);
+
 	}
 
 	// Metodo para crear la parte visual de la ventana
@@ -59,9 +50,9 @@ public class Win_Ejercicio3 implements Runnable{
 		// ==============
 		JPanel pnl_seleccionarSO = new JPanel();
 		pnl_seleccionarSO.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		fClass.getContentPane().add(pnl_seleccionarSO);
+		this.getContentPane().add(pnl_seleccionarSO);
 		pnl_seleccionarSO.setBounds(10, 26, 564, 93);
-		fClass.getContentPane().add(pnl_seleccionarSO);
+		this.getContentPane().add(pnl_seleccionarSO);
 		pnl_seleccionarSO.setLayout(null);
 		
 		//1.1 Label para seleccionar los radio buttons
@@ -100,7 +91,7 @@ public class Win_Ejercicio3 implements Runnable{
 		JPanel pnl_elegirEsp = new JPanel();
 		pnl_elegirEsp.setBorder(new LineBorder(new Color(0, 0, 0)));
 		pnl_elegirEsp.setBounds(10, 130, 564, 114);
-		fClass.getContentPane().add(pnl_elegirEsp);
+		this.getContentPane().add(pnl_elegirEsp);
 		pnl_elegirEsp.setLayout(null);
 		
 		// 2.2 Label de las especialidades
@@ -140,7 +131,7 @@ public class Win_Ejercicio3 implements Runnable{
 		
 		JPanel pnl_ingresarHoras = new JPanel();
 		pnl_ingresarHoras.setBounds(10, 255, 564, 43);
-		fClass.getContentPane().add(pnl_ingresarHoras);
+		this.getContentPane().add(pnl_ingresarHoras);
 		pnl_ingresarHoras.setLayout(null);
 		
 		// 3.1.1 Label para ingresar horas
@@ -163,7 +154,7 @@ public class Win_Ejercicio3 implements Runnable{
 			}
 		});
 		btnNewButton.setBounds(385, 309, 119, 23);
-		fClass.getContentPane().add(btnNewButton);
+		this.getContentPane().add(btnNewButton);
 	}
 
 	
@@ -171,17 +162,5 @@ public class Win_Ejercicio3 implements Runnable{
 		//TODO: FALTA CREAR LA NUEVA VENTANA CUANDO INGRESE LAS HORAS
 	}
 	
-	//Uso hilos para correr el codigo de creacion del frame para que las ventanas puedan usarse al mismo tiempo
-	@Override
-	public void run() {
 
-		try {
-
-		
-		
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }

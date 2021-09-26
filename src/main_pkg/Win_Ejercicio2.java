@@ -2,36 +2,28 @@ package main_pkg;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import java.awt.GridLayout;
+
 import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import javax.swing.JButton;
-import java.awt.List;
-import javax.swing.JList;
 import javax.swing.JComboBox;
-import javax.swing.JTextPane;
-import javax.swing.Box;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.awt.event.ActionEvent;
-import javax.swing.JMenuBar;
-import javax.swing.JSeparator;
-import java.awt.Choice;
 import java.awt.Container;
 import java.util.OptionalDouble;
-import java.util.OptionalInt;
 import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
 import javax.swing.border.TitledBorder;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFormattedTextField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
-public class Win_Ejercicio2 extends JFrame implements Runnable   {
+public class Win_Ejercicio2 extends JFrame  {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -50,6 +42,7 @@ public class Win_Ejercicio2 extends JFrame implements Runnable   {
 		
 		crearVisual();
 		actualizarVentana();
+
 	}
 	
 	private void crearVisual()
@@ -84,10 +77,25 @@ public class Win_Ejercicio2 extends JFrame implements Runnable   {
 		panel.add(lblNota);
 		
 		tf_Nota1 = new JFormattedTextField();
+		tf_Nota1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				try {
+				if(tf_Nota1.getText()!="")
+				if(Float.parseFloat(tf_Nota1.getText())>10  ) {
+					tf_Nota1.setText("");
+					JOptionPane.showMessageDialog(frame, "Inserte un numero menor a 10");
+					tf_Nota1.requestFocus();
+				}
+				}catch(NumberFormatException E) {}
+			}
+		});
 		tf_Nota1.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(!Character.isDigit(e.getKeyChar())) e.consume();
+				if(!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				} 
 			}
 		});
 		tf_Nota1.setBounds(115, 20, 129, 26);
@@ -95,6 +103,19 @@ public class Win_Ejercicio2 extends JFrame implements Runnable   {
 		tf_Nota1.setColumns(10);
 		
 		tf_Nota2 = new JFormattedTextField();
+		tf_Nota2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				try {
+				if(tf_Nota2.getText()!="")
+				if(Float.parseFloat(tf_Nota2.getText())>10  ) {
+					tf_Nota2.setText("");
+					JOptionPane.showMessageDialog(frame, "Inserte un numero menor a 10");
+					tf_Nota2.requestFocus();
+				}
+				}catch(NumberFormatException E) {}
+			}
+		});
 		tf_Nota2.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -106,6 +127,20 @@ public class Win_Ejercicio2 extends JFrame implements Runnable   {
 		tf_Nota2.setColumns(10);
 		
 		tf_Nota3 = new JFormattedTextField();
+		tf_Nota3.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				try {
+				if(tf_Nota3.getText()!="")
+				if(Float.parseFloat(tf_Nota3.getText())>10  ) {
+					tf_Nota3.setText("");
+					JOptionPane.showMessageDialog(frame, "Inserte un numero menor a 10");
+					tf_Nota3.requestFocus();
+					
+				}
+				}catch(NumberFormatException E) {}
+			}
+		});
 		tf_Nota3.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -120,7 +155,7 @@ public class Win_Ejercicio2 extends JFrame implements Runnable   {
 		lblNewLabel_2_1.setBounds(32, 147, 46, 14);
 		panel.add(lblNewLabel_2_1);
 		
-		comboBoxTP = new JComboBox();
+		comboBoxTP = new JComboBox<String>();
 		comboBoxTP.setModel(new DefaultComboBoxModel(new String[] {"Aprobado", "Desaprobado"}));
 		comboBoxTP.setBounds(115, 144, 129, 20);
 		panel.add(comboBoxTP);
@@ -234,20 +269,17 @@ public class Win_Ejercicio2 extends JFrame implements Runnable   {
 		public JTextField getTf_Nota3() {
 			return tf_Nota3;
 		}
-
-	//Uso hilos para correr el codigo de creacion del frame para que las ventanas puedan usarse al mismo tiempo
-	@Override
-	public void run() {
-
-		try {
-			Win_Ejercicio2 frame = new Win_Ejercicio2();
-
-			frame.setVisible(true);
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		
+		public JTextField getTf_Promedio() {
+			return tf_Promedio;
 		}
-	}
+
+		public JTextField getTfCondicion() {
+			return tf_Condicion;
+		}
+
+
+
 }
 
 class Botones implements ActionListener{
@@ -283,6 +315,11 @@ class Botones implements ActionListener{
 			ventana2.setPromedioAlumno(calcularPromedio());
 		}
 		if(e.getSource()==btn_Nuevo) {
+			ventana2.getTf_Nota1().setText(null);
+			ventana2.getTf_Nota2().setText(null);
+			ventana2.getTf_Nota3().setText(null);
+			ventana2.getTf_Promedio().setText("0");;
+			ventana2.getTfCondicion().setText(null);
 			
 		}
 		if(e.getSource()==btn_Salir) {
