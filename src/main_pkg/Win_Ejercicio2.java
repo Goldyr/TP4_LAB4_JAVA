@@ -27,7 +27,7 @@ public class Win_Ejercicio2 extends JFrame  {
 
 	private static final long serialVersionUID = 1L;
 	
-	public JFrame frame = new JFrame("Ejercicio2");
+	
 	
 	private JTextField tf_Nota1;
 	private JTextField tf_Nota2;
@@ -47,7 +47,7 @@ public class Win_Ejercicio2 extends JFrame  {
 	
 	private void crearVisual()
 	{
-		this.setTitle("Ejercicio 2");
+		this.setTitle("Promedio");
 		getContentPane().setLayout(null);
 		//Alto ancho y posicion donde se crea
 		this.setBounds(100,100,600,400);
@@ -84,7 +84,7 @@ public class Win_Ejercicio2 extends JFrame  {
 				if(tf_Nota1.getText()!="")
 				if(Float.parseFloat(tf_Nota1.getText())>10  ) {
 					tf_Nota1.setText("");
-					JOptionPane.showMessageDialog(frame, "Inserte un numero menor a 10", "Mensaje", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(new JFrame(), "Inserte un numero menor a 10", "Mensaje", JOptionPane.ERROR_MESSAGE);
 					tf_Nota1.requestFocus();
 				}
 				}catch(NumberFormatException E) {}
@@ -110,7 +110,7 @@ public class Win_Ejercicio2 extends JFrame  {
 				if(tf_Nota2.getText()!="")
 				if(Float.parseFloat(tf_Nota2.getText())>10  ) {
 					tf_Nota2.setText("");
-					JOptionPane.showMessageDialog(frame, "Inserte un numero menor a 10","Mensaje", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(new JFrame(), "Inserte un numero menor a 10","Mensaje", JOptionPane.ERROR_MESSAGE);
 					tf_Nota2.requestFocus();
 				}
 				}catch(NumberFormatException E) {}
@@ -134,7 +134,7 @@ public class Win_Ejercicio2 extends JFrame  {
 				if(tf_Nota3.getText()!="")
 				if(Float.parseFloat(tf_Nota3.getText())>10  ) {
 					tf_Nota3.setText("");
-					JOptionPane.showMessageDialog(frame, "Inserte un numero menor a 10","Mensaje", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(new JFrame(), "Inserte un numero menor a 10","Mensaje", JOptionPane.ERROR_MESSAGE);
 					tf_Nota3.requestFocus();
 					
 				}

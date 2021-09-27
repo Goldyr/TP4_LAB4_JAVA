@@ -43,7 +43,7 @@ public class Win_Ejercicio3 extends JFrame {
 	private JCheckBox cbAdmin;
 	
 	public Win_Ejercicio3() {
-		this.setTitle("Ejercicio 3");
+		this.setTitle("Seleccion multiple");
 
 		this.getContentPane().setLayout(null);
 		this.setBounds(100,100,600,400);

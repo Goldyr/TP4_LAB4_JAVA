@@ -28,15 +28,14 @@ public class Win_Ejercicio1 extends JFrame {
 
 
 	public Win_Ejercicio1() {
+		
+		this.setTitle("Contactos");
 		//Alto ancho y posicion donde se crea
 			this.setBounds(100,100,600,400);
 
 			this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			this.getContentPane().setLayout(null);
 			
-			JLabel lblTitulo = new JLabel("Ejercicio 1");
-			this.getContentPane().add(lblTitulo);
-			this.setVisible(true);
 			
 			//label nombre
 			JLabel lblNombre = new JLabel("Nombre");
