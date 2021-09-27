@@ -2,6 +2,8 @@ package main_pkg;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -14,8 +16,12 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFormattedTextField;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
@@ -26,9 +32,15 @@ public class Win_Ejercicio3 extends JFrame {
 
 	
 	private final ButtonGroup btnGroup_SO = new ButtonGroup();
-	private final ButtonGroup btnGroup_Esp = new ButtonGroup();
+
 	private  JTextField txtHoras;
 	private JButton btnNewButton;
+	private JRadioButton rbWindows;
+	private JRadioButton rbMac;
+	private JRadioButton rbLinux;
+	private JCheckBox cbProg;
+	private JCheckBox cbDGrafico;
+	private JCheckBox cbAdmin;
 	
 	public Win_Ejercicio3() {
 		this.setTitle("Ejercicio 3");
@@ -72,16 +84,15 @@ public class Win_Ejercicio3 extends JFrame {
 		
 		// 1.2.1 Checkboxlist para elegir el SO
 		// =============
-		JRadioButton rbWindows = new JRadioButton("Windows");
-		rbWindows.setSelected(true);
+		 rbWindows = new JRadioButton("Windows");
 		btnGroup_SO.add(rbWindows);
 		pnl_elegir_cb.add(rbWindows);
 		
-		JRadioButton rbMac = new JRadioButton("Mac");
+		 rbMac = new JRadioButton("Mac");
 		btnGroup_SO.add(rbMac);
 		pnl_elegir_cb.add(rbMac);
 		
-		JRadioButton rbLinux = new JRadioButton("Linux");
+		 rbLinux = new JRadioButton("Linux");
 		btnGroup_SO.add(rbLinux);
 		pnl_elegir_cb.add(rbLinux);
 		
@@ -110,19 +121,18 @@ public class Win_Ejercicio3 extends JFrame {
 		
 		// 2.3.1 Checkboxes para elegir la especialidad
 		// ===========
-		JCheckBox cbProg = new JCheckBox("Programaci\u00F3n");
-		cbProg.setSelected(true);
-		btnGroup_Esp.add(cbProg);
+		cbProg = new JCheckBox("Programaci\u00F3n");
+
 		cbProg.setBounds(71, 7, 240, 23);
 		panel_2.add(cbProg);
 		
-		JCheckBox cbDGrafico = new JCheckBox("Dise\u00F1o Gr\u00E1fico");
-		btnGroup_Esp.add(cbDGrafico);
+		 cbDGrafico = new JCheckBox("Dise\u00F1o Gr\u00E1fico");
+
 		cbDGrafico.setBounds(71, 59, 240, 23);
 		panel_2.add(cbDGrafico);
 		
-		JCheckBox cbAdmin = new JCheckBox("Administraci\u00F3n");
-		btnGroup_Esp.add(cbAdmin);
+		 cbAdmin = new JCheckBox("Administraci\u00F3n");
+
 		cbAdmin.setBounds(71, 33, 240, 23);
 		panel_2.add(cbAdmin);
 		
@@ -142,15 +152,23 @@ public class Win_Ejercicio3 extends JFrame {
 		
 		// 3.1.2 Textfield para ingresar horas
 		// ============
-		txtHoras = new JTextField();
+		txtHoras = new JFormattedTextField();
 		txtHoras.setBounds(289, 11, 108, 20);
 		pnl_ingresarHoras.add(txtHoras);
 		txtHoras.setColumns(10);
-		
+		txtHoras.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				} 
+			}
+		});
 		// 4. Boton para aceptar
 		btnNewButton = new JButton("Aceptar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				crearLogica();
 			}
 		});
 		btnNewButton.setBounds(385, 309, 119, 23);
@@ -160,7 +178,41 @@ public class Win_Ejercicio3 extends JFrame {
 	
 	private void crearLogica() {
 		//TODO: FALTA CREAR LA NUEVA VENTANA CUANDO INGRESE LAS HORAS
+		String  mensaje= "";
+		if(verificar()) {
+		if(rbWindows.isSelected()) {
+			mensaje +=rbWindows.getText();
+		}else if(rbMac.isSelected()) {
+			mensaje += rbMac.getText();
+		}else {
+			mensaje += rbLinux.getText();
+		}
+		
+		if(cbProg.isSelected()) {
+			mensaje +=  " - " + cbProg.getText();
+		}
+		if(cbAdmin.isSelected()) {
+			mensaje +=  " - " + cbAdmin.getText();
+		}
+		if(cbDGrafico.isSelected()) {
+			mensaje +=  " - " + cbDGrafico.getText();
+		}
+		
+		mensaje +=  " - " + txtHoras.getText()+ " Hs";
+		JOptionPane.showMessageDialog(new JFrame(), mensaje);
+		}
 	}
 	
-
+	private Boolean verificar() {
+		if(!rbWindows.isSelected() && !rbMac.isSelected() && !rbLinux.isSelected()) {
+			JOptionPane.showMessageDialog(new JFrame(), "Inserte un sistema operativo","Mensaje", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if(txtHoras.getText().length() == 0) {
+			JOptionPane.showMessageDialog(new JFrame(), "Inserte la cantidad de horas","Mensaje", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		return true;
+	}
+	
 }

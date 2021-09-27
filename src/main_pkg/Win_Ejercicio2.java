@@ -84,7 +84,7 @@ public class Win_Ejercicio2 extends JFrame  {
 				if(tf_Nota1.getText()!="")
 				if(Float.parseFloat(tf_Nota1.getText())>10  ) {
 					tf_Nota1.setText("");
-					JOptionPane.showMessageDialog(frame, "Inserte un numero menor a 10");
+					JOptionPane.showMessageDialog(frame, "Inserte un numero menor a 10", "Mensaje", JOptionPane.ERROR_MESSAGE);
 					tf_Nota1.requestFocus();
 				}
 				}catch(NumberFormatException E) {}
@@ -110,7 +110,7 @@ public class Win_Ejercicio2 extends JFrame  {
 				if(tf_Nota2.getText()!="")
 				if(Float.parseFloat(tf_Nota2.getText())>10  ) {
 					tf_Nota2.setText("");
-					JOptionPane.showMessageDialog(frame, "Inserte un numero menor a 10");
+					JOptionPane.showMessageDialog(frame, "Inserte un numero menor a 10","Mensaje", JOptionPane.ERROR_MESSAGE);
 					tf_Nota2.requestFocus();
 				}
 				}catch(NumberFormatException E) {}
@@ -134,7 +134,7 @@ public class Win_Ejercicio2 extends JFrame  {
 				if(tf_Nota3.getText()!="")
 				if(Float.parseFloat(tf_Nota3.getText())>10  ) {
 					tf_Nota3.setText("");
-					JOptionPane.showMessageDialog(frame, "Inserte un numero menor a 10");
+					JOptionPane.showMessageDialog(frame, "Inserte un numero menor a 10","Mensaje", JOptionPane.ERROR_MESSAGE);
 					tf_Nota3.requestFocus();
 					
 				}
@@ -312,18 +312,22 @@ class Botones implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==btn_Calcular) {
+			if(ventana2.getTf_Nota1().getText().length() != 0 || ventana2.getTf_Nota2().getText().length() != 0 || ventana2.getTf_Nota3().getText().length() != 0) {
 			ventana2.setPromedioAlumno(calcularPromedio());
+			}else {
+				JOptionPane.showMessageDialog(new JFrame(), "Ingrese las 3 notas","Mensaje", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		if(e.getSource()==btn_Nuevo) {
 			ventana2.getTf_Nota1().setText(null);
 			ventana2.getTf_Nota2().setText(null);
 			ventana2.getTf_Nota3().setText(null);
-			ventana2.getTf_Promedio().setText("0");;
+			ventana2.setPromedioAlumno(0);
 			ventana2.getTfCondicion().setText(null);
 			
 		}
 		if(e.getSource()==btn_Salir) {
-			
+			ventana2.setVisible(false);
 		}
 		
 		ventana2.actualizarVentana();

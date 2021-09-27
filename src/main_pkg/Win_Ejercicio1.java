@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class Win_Ejercicio1 extends JFrame {
 
@@ -43,6 +45,14 @@ public class Win_Ejercicio1 extends JFrame {
 			
 			///textbox nombre
 			txtNombre = new JTextField();
+			txtNombre.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent e) {
+					if(txtNombre.getBackground()== Color.RED) {
+						txtNombre.setBackground(Color.WHITE);
+					}
+				}
+			});
 			txtNombre.setBounds(150, 27, 140, 20);
 			this.getContentPane().add(txtNombre);
 			txtNombre.setColumns(10);
@@ -54,17 +64,33 @@ public class Win_Ejercicio1 extends JFrame {
 			
 			///Textbox apellido
 			txtApellido = new JTextField();
+			txtApellido.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent e) {
+					if(txtApellido.getBackground()== Color.RED) {
+						txtApellido.setBackground(Color.WHITE);
+					}
+				}
+			});
 			txtApellido.setBounds(150, 67, 140, 20);
 			this.getContentPane().add(txtApellido);
 			txtApellido.setColumns(10);
 			
 			//label telefono
-			JLabel lblTelefono= new JLabel("Apellido");
-			lblTelefono.setBounds(65, 110, 46, 14);
+			JLabel lblTelefono= new JLabel("Telefono");
+			lblTelefono.setBounds(65, 110, 63, 14);
 			this.getContentPane().add(lblTelefono);
 			
 			//textbox Telefono
 			txtTelefono = new JTextField();
+			txtTelefono.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent e) {
+					if(txtTelefono.getBackground()== Color.RED) {
+						txtTelefono.setBackground(Color.WHITE);
+					}
+				}
+			});
 			txtTelefono.setBounds(150, 107, 140, 20);
 			this.getContentPane().add(txtTelefono);
 			txtTelefono.setColumns(10);
@@ -76,6 +102,14 @@ public class Win_Ejercicio1 extends JFrame {
 			
 			//textbox Fecha
 			txtFecha = new JTextField();
+			txtFecha.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent e) {
+					if(txtFecha.getBackground()== Color.RED) {
+						txtFecha.setBackground(Color.WHITE);
+					}
+				}
+			});
 			txtFecha.setBounds(150, 147, 140, 20);
 			this.getContentPane().add(txtFecha);
 			txtFecha.setColumns(10);
